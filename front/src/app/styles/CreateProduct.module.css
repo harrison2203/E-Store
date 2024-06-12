@@ -1,0 +1,36 @@
+
+.create__container {
+	display: flex;
+	flex: column;
+	flex-direction: column;
+}
+
+.create__title__container {
+	margin-bottom: 2rem;
+}
+
+.create__form {
+	display: flex;
+	width: 90rem;
+	flex-direction: column;
+}
+
+.create__input {
+	padding: 1.6rem;
+	margin-bottom: 2.5rem;
+}
+
+.create__label{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+	font-size: large;
+	font-weight:bold;
+}
+
+.create__button {
+	margin-top: 3rem;
+	height: 5rem;
+	width: 90rem;
+
+}

@@ -1,0 +1,46 @@
+.product {
+	display: flex;
+	flex-direction: row;
+	padding-top: 10rem;
+}
+
+.product__photo {
+	display: flex;
+	width: 83rem;
+	justify-content: end;
+}
+
+.product__photo__image {
+	height: 50rem;
+	width: 70rem;
+	border-radius: 0.5rem;
+}
+
+.product__information{
+	height: 50rem;
+	width: 70rem;
+	padding: 6.5rem;
+}
+
+.product__name {
+	color: var(--headline);
+	padding-bottom: 5rem;
+}
+
+.product__description {
+}
+
+.product__price {
+	padding-top: 1rem;
+}
+
+.button_actions {
+	display: flex;
+	justify-content: center;
+	margin-top: 6rem;
+}
+
+.product_button {
+	width: 47rem;
+	height: 5rem;
+}

@@ -1,0 +1,58 @@
+.login__container {
+	display: flex;
+	flex: row;
+	margin: 0 auto;
+}
+
+.login {
+	padding-left: 16rem;
+	margin-top: 7.2rem;
+	width: 90rem;
+}
+.login__photo {
+	height: 74rem;
+	width: 42rem;
+}
+
+.login__title {
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+}
+
+.login__form {
+	display: flex;
+	flex-direction: column;
+}
+
+.login__input {
+	padding: 2rem;
+	margin-bottom: 3.2rem;
+}
+.login__label{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+	font-size: large;
+	font-weight:bold;
+}
+
+.login__remember {
+	display: flex;
+
+}
+
+.remember__label {
+	margin-left: 1rem;
+}
+
+.login__button {
+	margin-top: 5rem;
+	height: 7rem;
+}
+
+.login__register {
+	display: flex;
+	flex-direction: row;
+	padding: 2rem;
+	justify-content: center;
+}

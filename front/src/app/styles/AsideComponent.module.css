@@ -1,0 +1,17 @@
+.main__aside {
+	background-color: antiquewhite;
+	height: 74.8rem;
+}
+
+.general__list {
+	padding: 4rem 4rem;
+}
+
+.list_item {
+	display: flex;
+	margin-top: 4rem;
+}
+
+.item__title {
+	margin-left: 2rem;
+}

@@ -1,0 +1,74 @@
+.main__user__container {
+	display: grid;
+	grid-template-areas: "image account";
+	grid-template-columns: 45% 55%;
+}
+
+.photo__container {
+	grid-area: image;
+
+}
+.photo__image {
+	grid-area: image;
+	height: 74.2rem;
+	width: 56rem;
+}
+
+.user__account__container {
+	grid-area: account;
+	display: flex;
+	align-items: center;
+	margin-left: 12rem;
+}
+
+.user__account {
+	border: 1px solid;
+	border-radius: 2rem;
+	height: 60rem;
+	width: 40rem;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.account__information {
+	margin-top: 4rem;
+	display: flex;
+	justify-content: center;
+}
+
+.account__information__title {
+	border: 1px solid;
+	width: 25rem;
+	padding: 1rem 2rem 1rem 2rem;
+}
+
+.account_icon {
+	font-size: 11rem;
+	display: flex;
+	justify-content: center;
+	padding: 5rem 0rem 2rem;
+}
+
+.account_names {
+	display: flex;
+	justify-content: space-evenly;
+	padding: 2rem;
+}
+
+.account_email {
+	padding: 2rem;
+}
+
+.account__buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	padding: 3rem;
+}
+
+.account__buttons__button {
+	width: 7rem;
+	height: 4rem;
+}
+
