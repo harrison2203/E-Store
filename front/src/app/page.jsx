@@ -6,14 +6,14 @@ import RootLayout from "./layout";
 
 export default function Home({pageProps}) {
 	return (
-		<main className={styles.main}>
-			<RootLayout index={0}>
-			</RootLayout>
-				<div>
-					<ProductsProvider>
-						<FetchProducts {...pageProps}/>
-					</ProductsProvider>
-				</div>
-		</main>
+		<RootLayout index={0}>
+			<main className={styles.main}>
+					<div>
+						<ProductsProvider>
+							<FetchProducts {...pageProps}/>
+						</ProductsProvider>
+					</div>
+			</main>
+		</RootLayout>
 	);
 }
