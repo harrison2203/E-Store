@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import styles from '../app/styles/LoginComponent.module.css';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { jwtDecode } from "jwt-decode";
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 
 export default function Login() {
 	const cookies = new Cookies();
+	const router = useRouter();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [token, setToken] = useState("");
@@ -19,12 +23,21 @@ export default function Login() {
 		}
 	}, []);
 
+	function	notification (message) {
+		return toast(`${message}`)
+	}
+
+	function redirectTo() {
+		setTimeout(() => {
+			router.push('/');
+		}, 4000);
+  };
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
 		formData.append('username', username);
 		formData.append('password', password);
-		console.log(formData)
 		try {
 			const response = await axios.post('http://localhost:8000/login/', formData,
 				{
@@ -35,13 +48,10 @@ export default function Login() {
 				if (response.status === 200) {
 						const accessToken = response.data.token;
 						const decodedToken = jwtDecode(accessToken);
-
-						console.log('encrypted token', accessToken);
-						console.log('decoded token', decodedToken);
-
 						cookies.set('access_token', accessToken)
 						cookies.set('user_info', JSON.stringify(decodedToken));
-
+						redirectTo();
+						notification(response.data.message);
 						setToken(accessToken)
 				} else {
 					console.error('request error');
@@ -82,9 +92,10 @@ export default function Login() {
 				</label>
 					<div className={styles.login__remember}>
 						<input className={styles.remember__checkbox} type="checkbox" id="remember-checkbox" />
-						<label className={styles.remember__label}for="remember-checkbox" class="remember__label">Remember me for 30 days</label>
+						<label className={styles.remember__label} htmlFor="remember-checkbox">Remember me for 30 days</label>
 					</div>
 						<button className={styles.login__button} type="submit">Login</button>
+						<ToastContainer />
 					<div className={styles.login__register}>
 						<p>Don't have an account ?</p>
 							<Link href={'/register/'} legacyBehavior>

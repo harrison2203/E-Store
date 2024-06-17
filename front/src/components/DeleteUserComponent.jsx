@@ -1,6 +1,6 @@
 import axios from 'axios';
 import styles from '../app/styles/DeleteUserComponent.module.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from 'universal-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,19 +10,27 @@ import { useRouter } from "next/navigation";
 export default function FetchDeleteUser ({id}) {
 	const cookies = new Cookies();
 	const router = useRouter();
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState(true);
+	const [isLoggedIn, setIsLoggedIn] = useState(true); 
 	const token = cookies.get('access_token');
+	const userInfo = cookies.get('user_info');
 
-	function	notification () {
-		return toast("Delete Account Success")
+
+	function	notification (message) {
+		return toast(`${message}`);
 	}
 
-	function refreshPush() {
+	function redirectTo() {
 		setTimeout(() => {
 			router.push('/');
-			console.log("Voici le premier message");
-		}, 5000);
+		}, 4000);
   };
+
+	function handleLogOut() {
+		const cookies = new Cookies();
+		cookies.remove('access_token');
+		cookies.remove('user_info');
+	};
 	
 	const deleteUser = async (token, id) => {
 		if (!token) {
@@ -41,9 +49,11 @@ export default function FetchDeleteUser ({id}) {
 				}
 			});
 			if(response.status === 200){
-				setUser(response.data);
-				notification();
-				refreshPush();
+				setUser(false);
+				handleLogOut();
+				setIsLoggedIn(false);
+				redirectTo();
+				notification(response.data.message);
 			}else {
 				console.error("request error")
 			}

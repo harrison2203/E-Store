@@ -18,6 +18,10 @@ print(SECRET_KEY)
 #good -all
 def CreateUser(request):
 	if request.method == 'POST':
+		empty_fields = emptyValues(request.POST)
+		if empty_fields:
+				return empty_fields
+		
 		form = UserCreateForm(request.POST)
 		if form.is_valid():
 			user = User(
@@ -27,14 +31,20 @@ def CreateUser(request):
 			email = form.cleaned_data.get('email'),
 			password = form.cleaned_data.get('password')
 			)
+			print('test valid values', user.username)
 			user.save()
-			return JsonResponse({
+			return JsonResponse({'message': 'Your account has been created',
 													'username' : user.username,
 													'firstname': user.first_name,
 													'lastname': user.last_name,
 													'email' : user.email,
 													'password': user.password
 													}, status=201)
+
+		username = form.cleaned_data.get('username'),
+		username = ''.join(username)
+		if User.objects.filter(username=username).exists():
+			return JsonResponse({'message': 'this username already exists'}, status=409)
 
 	else:
 		form = UserCreateForm()
@@ -54,9 +64,6 @@ def LoginUser(request):
 
 		user = User.objects.filter(username = credentials.username).values('id','username', 'is_superuser')
 		print("user values", user)
-		#user = authenticate(request, username='Alvarin', password='TEST')
-		print('the user is', user)
-
 		idUserDB = user[0]['id']
 		usernameDB = user[0]['username']
 		isSuperUser = user[0]['is_superuser']
@@ -80,19 +87,6 @@ def LoginUser(request):
 	else:
 		form = UserLoginForm()
 		return JsonResponse({'message': 'This method is not allowed'})
-
-def LogOut(request):
-	if request.method == 'POST':
-		print('request from logout', request)
-		tokenAcces = encodeToken(request)
-		print('tokenaccesssssssss', tokenAcces)
-		if tokenAcces is not None:
-			print('test if token exist')
-			tokenAcces.delete()
-			print('tokencito ', tokenAcces)
-			if tokenAcces is None:
-				print('token not found')
-				return
 
 
 #ADMIN - good
@@ -191,10 +185,16 @@ def decodeToken (request):
 
 def encodeToken (request):
 		auth = request.headers.get('Authorization')
-		print('authentification',auth)
 		if auth is not None:
 			if auth.startswith('Bearer '):
 				encoded_jwt = auth.split(' ')[1]
 				return encoded_jwt
+
+
+def emptyValues (request):
+		for key in request:
+			if request[key] == "":
+				return JsonResponse({'message': 'All values are required'},status=400)
+
 
 

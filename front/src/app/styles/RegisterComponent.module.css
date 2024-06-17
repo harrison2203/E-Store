@@ -1,7 +1,6 @@
 .register__container {
 	display: flex;
 	flex: row;
-	margin: 0 auto;
 }
 
 .register {
@@ -10,8 +9,13 @@
 	width: 90rem;
 }
 
+.register__photo__container {
+	display: flex;
+	align-items: center;
+}
+
 .register__photo {
-	height: 75rem;
+	min-height: 100vh;
 	width: 42rem;
 }
 
@@ -37,22 +41,7 @@
 	font-weight:bold;
 }
 
-.register__remember {
-	display: flex;
-}
-
-.remember__label {
-	margin-left: 1rem;
-}
-
 .register__button {
 	margin-top: 3rem;
 	height: 5rem;
-}
-
-.register__register {
-	display: flex;
-	flex-direction: row;
-	padding: 2rem;
-	justify-content: center;
 }

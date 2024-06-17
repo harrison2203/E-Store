@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import styles from '../app/styles/RegisterComponent.module.css'
+import styles from '../app/styles/RegisterComponent.module.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Register() {
@@ -9,6 +11,10 @@ export default function Register() {
 	const [last_name, setLastname] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	function	notification (message) {
+		return toast(`${message}`)
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -24,13 +30,14 @@ export default function Register() {
 				headers: { "Content-Type": "multipart/form-data" },
 			});
 			if (response.status === 201) {
-				console.log('display request', response.data);
-			} else {
-				console.error('Error detected');
+				notification(response.data.message)
 			}
 		} catch (error) {
-			console.error('Error fetching data:', error);
-			console.error('error response data', error.response.data);
+			if (error.status === 409) {
+				notification(error.response.data.message)
+			} else {
+				notification(error.response.data.message)
+			}
 		}
 	}
 	return (
@@ -94,6 +101,7 @@ export default function Register() {
 							/>
 					</label>
 					<button className={styles.register__button} type="submit">Register</button>
+					<ToastContainer />
 				</form>
 			</div>
 		</main>
